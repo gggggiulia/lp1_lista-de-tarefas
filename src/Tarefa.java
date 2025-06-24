@@ -37,6 +37,6 @@ public class Tarefa {
     
     @Override
     public String toString() {
-        return "[" + (check ? "X" : " ") + "] " + texto + (dataConclusao != null ? " (Atualizado em: " + dataConclusao + ")" : "");
+        return "[" + (check ? "X" : " ") + "] " + texto + (dataConclusao != null ? " (Concluído em: " + dataConclusao + ")" : "");
     }
 }
