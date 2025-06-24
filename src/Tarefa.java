@@ -6,8 +6,8 @@ public class Tarefa {
     private LocalDateTime dataConclusao;
     
     //Construtor
-    public Tarefa(String descricao) {
-        this.descricao = descricao;
+    public Tarefa(String texto) {
+        this.texto = texto;
         this.concluido = false;
         this.dataConclusao = null;
     }
