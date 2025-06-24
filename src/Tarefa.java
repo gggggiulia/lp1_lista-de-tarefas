@@ -16,6 +16,10 @@ public class Tarefa {
         return texto;
     }
 
+    public void setTexto(String novoTexto) {
+        this.texto = novoTexto;
+    }
+
     public boolean isConcluido() {
         return check;
     }
