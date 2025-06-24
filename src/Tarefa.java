@@ -1,4 +1,3 @@
-package br.edu.ifsp.spo.java.todolist;
 import java.time.LocalDateTime;
 
 public class Tarefa {
