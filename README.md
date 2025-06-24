@@ -7,6 +7,6 @@ Esta aplicação é o projeto de uma lista de tarefas simples desenvolvida na li
 - Filtrar as tarefas por: Todas as Tarefas, Tarefas Pendentes e Tarefas Concluídas
 
 # Classes
-Tarefa.java:
-ListadeTarefas.java:
-Main.java: 
+- Tarefa.java:
+- ListadeTarefas.java:
+- Main.java: 
