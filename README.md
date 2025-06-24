@@ -9,4 +9,4 @@ Esta aplicação é o projeto de uma lista de tarefas simples desenvolvida na li
 # Classes
 - Tarefa.java:
 - ListadeTarefas.java:
-- Main.java: 
+- App.java: 
