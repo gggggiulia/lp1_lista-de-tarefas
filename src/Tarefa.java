@@ -38,6 +38,12 @@ public class Tarefa {
         check = false;
         dataConclusao = null;
     }
+
+    public void cadastrarTarefa() {
+        System.out.print("Qual tarefa você deseja adicionar hoje? ");
+        this.texto = scanner.nextLine();
+
+    }
     
     @Override
     public String toString() {
