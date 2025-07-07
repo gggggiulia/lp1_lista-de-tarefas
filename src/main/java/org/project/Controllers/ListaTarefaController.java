@@ -1,3 +1,5 @@
+//Alterações
+
 package org.project.Controllers;
 
 import javafx.fxml.FXML;
@@ -23,7 +25,7 @@ public class ListaTarefasController {
     private SplitMenuButton menuFiltro;
 
     @FXML
-    private ChoiceBox<Tarefa> comboPendentes;
+    private ChoiceBox<Tarefa> comboTarefas;
 
     private TarefaDAO dao;
 
@@ -42,43 +44,45 @@ public class ListaTarefasController {
             atualizarLista();
             campoTexto.clear();
         }else{
-            mostrarAlerta("Campo vazio!", "Preencha o campo 'Adicionar tarefa' para adicionar uma tarefa.", Alert.AlertType.WARNING);
+            mostrarAlerta("Preencha o campo para adicionar uma tarefa.", Alert.AlertType.WARNING);
         }
     }
 
     @FXML
-    public void marcarComoFeita() {
-        Tarefa selecionada = comboPendentes.getSelectionModel().getSelectedItem();
-        LocalDate data = campoDataConclusao.getValue();
-
+    public void alternarStatusTarefa() {
+        Tarefa selecionada = comboTarefas.getValue();
         if (selecionada == null) {
-            mostrarAlerta("Nenhuma tarefa selecionada", "Escolha uma tarefa pendente na lista para concluir.", Alert.AlertType.WARNING);
+            mostrarAlerta("Escolha uma tarefa listada para alterar o status.", Alert.AlertType.WARNING);
             return;
         }
 
-        if (data == null) {
-            mostrarAlerta("Data não informada", "Escolha uma data de conclusão.", Alert.AlertType.WARNING);
-            return;
+        if (selecionada.isConcluida()) {
+            dao.atualizarStatus(selecionada, false, null);
+        } else {
+            LocalDate data = campoDataConclusao.getValue();
+            if (data == null) {
+                mostrarAlerta("Informe a data de conclusão.", Alert.AlertType.WARNING);
+                return;
+            }
+            dao.atualizarStatus(selecionada, true, data);
         }
 
-        dao.marcarComoConcluida(selecionada, data);
         atualizarLista();
-        listaTarefas.refresh();
         campoDataConclusao.setValue(null);
-        comboPendentes.getSelectionModel().clearSelection();
+        comboTarefas.setValue(null);
     }
 
     @FXML
     public void atualizarLista() {
         listaTarefas.getItems().setAll(dao.listarTodas());
-        comboPendentes.getItems().setAll(dao.listarPendentes());
+        comboTarefas.getItems().setAll(dao.listarTodas());
         menuFiltro.setText("Todas as tarefas");
     }
 
     @FXML
     public void filtrarPendentes() {
         listaTarefas.getItems().setAll(dao.listarPendentes());
-        comboPendentes.getItems().setAll(dao.listarPendentes());
+        comboTarefas.getItems().setAll(dao.listarPendentes());
         menuFiltro.setText("Tarefas pendentes");
     }
 
@@ -88,9 +92,9 @@ public class ListaTarefasController {
         menuFiltro.setText("Tarefas concluídas");
     }
 
-    private void mostrarAlerta(String titulo, String mensagem, Alert.AlertType tipo) {
+    private void mostrarAlerta(String mensagem, Alert.AlertType tipo) {
         Alert alerta = new Alert(tipo);
-        alerta.setTitle(titulo);
+        alerta.setTitle("Aviso");
         alerta.setHeaderText(null);
         alerta.setContentText(mensagem);
         alerta.showAndWait();
