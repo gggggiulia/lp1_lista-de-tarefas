@@ -16,7 +16,7 @@ public class Tarefa {
     }
 
     public Tarefa(String texto, boolean concluida, LocalDate datadeConclusao) {
-        this(-1, texto, concluida, datadeConclusao);
+        this(-1, texto, concluida, datadeConclusao); // -1 para tarefa ainda não salva
     }
 
     public int getId() { return id; }
@@ -26,9 +26,9 @@ public class Tarefa {
 
     @Override
     public String toString() {
-        String status = concluida ? "[X]" : "[ ]";
+        String status = concluida ? "✓" : "";
         String dataTexto = (concluida && datadeConclusao != null)
-                ? " – Concluída em: " + datadeConclusao 
+                ? " – Concluída em: " + datadeConclusao
                 : "";
         return status + " " + texto + dataTexto;
     }
