@@ -80,7 +80,6 @@ public class ListaTarefasController {
     @FXML
     public void filtrarPendentes() {
         listaTarefas.getItems().setAll(dao.listarPendentes());
-        comboTarefas.getItems().setAll(dao.listarPendentes());
         menuFiltro.setText("Tarefas pendentes");
     }
 
