@@ -32,6 +32,7 @@ public class TarefaDAO {
             try (ResultSet rs = stmt.getGeneratedKeys()) {
                 if (rs.next()) {
                     int idGerado = rs.getInt(1);
+                    tarefa.setId(idGerado);
                     System.out.println("Tarefa salva com sucesso. ID: " + idGerado);
                 }
             }
@@ -41,16 +42,24 @@ public class TarefaDAO {
         }
     }
 
-    public void marcarComoConcluida(Tarefa tarefa, LocalDate dataConclusao) {
-        String sql = "UPDATE tarefa SET concluida = 1, datadeConclusao = ? WHERE id = ?";
+    public void atualizarStatus(Tarefa tarefa, boolean concluida, LocalDate dataConclusao) {
+        String sql = "UPDATE tarefa SET concluida = ?, datadeConclusao = ? WHERE id = ?";
 
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setDate(1, Date.valueOf(dataConclusao));
-            stmt.setInt(2, tarefa.getId());
+            stmt.setBoolean(1, concluida);
+
+            if (concluida && dataConclusao != null) {
+                stmt.setDate(2, Date.valueOf(dataConclusao));
+            } else {
+                stmt.setNull(2, Types.DATE);
+            }
+
+            stmt.setInt(3, tarefa.getId());
             stmt.executeUpdate();
-            System.out.println("Tarefa marcada como concluída.");
+
+            System.out.println("Status da tarefa atualizado: " + (concluida ? "Concluída" : "Pendente"));
         } catch (SQLException e) {
-            System.err.println("Erro ao concluir tarefa: " + e.getMessage());
+            System.err.println("Erro ao atualizar status da tarefa: " + e.getMessage());
         }
     }
 
