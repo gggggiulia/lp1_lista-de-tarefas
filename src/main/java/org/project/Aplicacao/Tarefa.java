@@ -16,13 +16,15 @@ public class Tarefa {
     }
 
     public Tarefa(String texto, boolean concluida, LocalDate datadeConclusao) {
-        this(-1, texto, concluida, datadeConclusao); // -1 para tarefa ainda não salva
+        this(-1, texto, concluida, datadeConclusao);
     }
 
     public int getId() { return id; }
     public String getTexto() { return texto; }
     public boolean isConcluida() { return concluida; }
     public LocalDate getDataDeConclusao() { return datadeConclusao; }
+
+    public void setId(int id) { this.id = id; }
 
     @Override
     public String toString() {
@@ -32,5 +34,4 @@ public class Tarefa {
                 : "";
         return status + " " + texto + dataTexto;
     }
-
 }
