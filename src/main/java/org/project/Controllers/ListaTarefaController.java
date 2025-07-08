@@ -1,5 +1,3 @@
-//Alterações
-
 package org.project.Controllers;
 
 import javafx.fxml.FXML;
